@@ -1,0 +1,159 @@
+
+;---------------------------Первый планшет--------------------------------------	
+	GENERATE ,,,36         ;
+	SAVEVALUE plan,36;
+Waittime QTABLE REMONT1,0,20,20;
+TT TABLE M2,1,2,10;
+;TT TABLE M1,0.05,0.1,15;
+
+INITIAL X$RAND,0 ; 
+;SAVEVALUE RAND,NORMAL(1,10,100);
+
+ASSIGN RAND,(TRIANGULAR(1,0.1,0.9,0.45));
+;TABULATE TT;
+SAVEVALUE RAND,RAND;
+
+
+
+	TRANSFER ,str
+
+str1      SAVEVALUE KP+,1 ;
+	TRANSFER ,str
+
+str2     	SAVEVALUE CP+,1 ;
+	TRANSFER ,str
+
+str3     	SAVEVALUE TP+,1 ;
+	TRANSFER ,str
+
+
+
+str	ADVANCE 480,24	;
+		
+	TRANSFER (TRIANGULAR(1,0.12,0.13,0.125)),Met1,remontKP   ;
+Met1	TRANSFER (TRIANGULAR(1,0.13,0.25,0.19)),Met2,remontCP   ;
+Met2 	TRANSFER (TRIANGULAR(1,0.25,0.5,0.375)),str,remontTP   ;
+
+ 
+remontKP 	QUEUE REMONT1 ; 
+	SEIZE MASTER  ;
+	DEPART REMONT1 ;
+	ADVANCE 48,4 ;
+	RELEASE MASTER ;
+	TRANSFER 0.2,fin,str1;
+remontCP  QUEUE REMONT2;
+	SEIZE MASTER2;
+	DEPART REMONT2 ;
+	ADVANCE 24,2 ; 
+	RELEASE MASTER2 ;
+	TRANSFER 0.9, fin,str2
+
+
+remontTP	QUEUE REMONT3 ; 
+	SEIZE MASTER3  ;
+	DEPART REMONT3 ;
+	ADVANCE 12,1.2 ;
+	RELEASE MASTER3 ;
+	TRANSFER ,str3;
+	
+	
+fin   	SAVEVALUE available_table+,1
+	TERMINATE 0;
+;---------------------------Первый планшет--------------------------------------
+	GENERATE ,,,54      
+
+	TRANSFER ,str_2
+
+str1_2    SAVEVALUE KP_2+,1 ;
+	TRANSFER ,str_2
+
+str2_2    SAVEVALUE CP_2+,1 ;
+	TRANSFER ,str_2
+
+str3_2    SAVEVALUE TP_2+,1 ;
+	TRANSFER ,str_2
+
+
+
+str_2	ADVANCE 480,24	;
+		
+	TRANSFER (TRIANGULAR(1,0.12,0.13,0.125)),Met3,remontKP_2   ;
+Met3	TRANSFER (TRIANGULAR(1,0.13,0.25,0.19)),Met4,remontCP_2   ;
+Met4 	TRANSFER (TRIANGULAR(1,0.25,0.5,0.375)),str_2,remontTP_2   ;
+
+ 
+remontKP_2 QUEUE REMONT1_2 ; 
+	SEIZE MASTER_2  ;
+	DEPART REMONT1_2 ;
+	ADVANCE 48,4 ;
+	RELEASE MASTER_2 ;
+	TRANSFER 0.2,fin_2,str1_2;
+remontCP_2 QUEUE REMONT2_2;
+	SEIZE MASTER2_2;
+	DEPART REMONT2_2 ;
+	ADVANCE 24,2 ; 
+	RELEASE MASTER2_2 ;
+	TRANSFER 0.9,fin_2,str2_2;
+
+
+remontTP_2 QUEUE REMONT3_2 ; 
+	SEIZE MASTER3_2  ;
+	DEPART REMONT3_2 ;
+	ADVANCE 12,1.2 ;
+	RELEASE MASTER3_2 ;
+	TRANSFER ,str3_2;
+
+
+fin_2     SAVEVALUE available_table+,1
+	TERMINATE 0;
+;---------------------------Первый планшет--------------------------------------
+	GENERATE ,,,76      
+	TRANSFER ,str_3
+
+str1_3    SAVEVALUE KP_3+,1 ;
+	TRANSFER ,str_3
+
+str2_3    SAVEVALUE CP_3+,1 ;
+	TRANSFER ,str_3
+
+str3_3    SAVEVALUE TP_3+,1 ;
+	TRANSFER ,str_3
+
+
+
+str_3	ADVANCE 480,24	;
+		
+	TRANSFER (TRIANGULAR(1,0.12,0.13,0.125)),Met5,remontKP_3   ;
+Met5	TRANSFER (TRIANGULAR(1,0.13,0.25,0.19)),Met6,remontCP_3   ;
+Met6 	TRANSFER (TRIANGULAR(1,0.25,0.5,0.375)),str_3,remontTP_3   ;
+
+ 
+remontKP_3 QUEUE REMONT1_3 ; 
+	SEIZE MASTER_3  ;
+	DEPART REMONT1_3 ;
+	ADVANCE 48,4 ;
+	RELEASE MASTER_3 ;
+	TRANSFER 0.2,fin_3,str1_3;
+remontCP_3 QUEUE REMONT2_3;
+	SEIZE MASTER2_3;
+	DEPART REMONT2_3 ;
+	ADVANCE 24,2 ; 
+	RELEASE MASTER2_3 ;
+	TRANSFER 0.9,fin_3,str2_3;
+
+
+remontTP_3 QUEUE REMONT3_3 ; 
+	SEIZE MASTER3_3  ;
+	DEPART REMONT3_3 ;
+	ADVANCE 12,1.2 ;
+	RELEASE MASTER3_3 ;
+	TRANSFER ,str3_3;
+
+fin_3	SAVEVALUE available_table+,1
+	TERMINATE 0;
+;---------------------------Первый планшет--------------------------------------
+GENERATE 8 ; Рабочий день окончился
+TERMINATE 1 ; Моделирование окончилось
+START 365 ; Число дней моделирования
+
+;13200,1000  //
